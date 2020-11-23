@@ -1,34 +1,65 @@
 <html>
 <head>
-    <script>
-        /* UNDERSTAND
-        A single round of 'Rock paper scissors' against the computer in the console.
-        */
+</head>
+<body>
+    <div class="heading">
+        <h1>Rock, Paper, Scissors Game</h1>
+        <h2>You vs the computer - 5 rounds, let's see who wins...</h2>
+    </div>
+    <div class="buttons">
+        <h3>Click your selection below:</h3>
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+    <div class="results">
+        <h3>Result of this round:</h3>
+    </div>
+    <div class="round-results">
+        <h3>Results history from each round:</h3>
 
-//Loop entire game for 5 rounds - extended challenge
-        let i;
-        for (i=0; i<5; i++){
+    </div>
+    <div class="game-winner">
+        <h3>Game Winner:</h3>
+
+    </div>
+
+    <script>
+
+        //Loop entire game for 5 rounds - extended challenge
+        
 
              //The computer randomly selects rock paper or scissors
 
             let options = ["rock", "paper", "scissors"]
-            function computerPlay () {
+
+            function computerPlay (options) {
                 let randomSelection = Math.floor(Math.random()*options.length);
                 return options[randomSelection];
             }
 
-            //The user is requested to select rock paper or scissors, case insensitive
+            //The user clicks on a button selection of rock, paper or scissors
+            const buttons = document.querySelectorAll("button");
+            let playerSelection = "";
+            let computerSelection = "";
+            buttons.forEach((button)=> {
+                button.addEventListener("click", function(e){
+                    playerSelection = this.id;
 
-            function playerPlay () {
-                let selection = prompt("Choose your option, type either: Rock, Paper or Scissors:", "Rock, Paper, Scissors");
-                let lowerCase = selection.toLowerCase();
-                return lowerCase;
-            }
+                    computerSelection = computerPlay(options);
+                    console.log(playerSelection, computerSelection);
 
+                    let result = doesPlayerWin(playerSelection,computerSelection);
+                    console.log(result);
+                    console.log(playRound(result)); 
+
+
+
+
+                });
+            });
+    
             //The responses are analysed to who wins
-
-            const playerSelection = playerPlay();
-            const computerSelection = computerPlay();
 
             function doesPlayerWin(playerSelection, computerSelection){
                 // Draw
@@ -56,10 +87,8 @@
                 } else {
                     return false;
                 }
+
             } 
-            console.log(playerSelection, computerSelection);
-            let result = doesPlayerWin(playerSelection,computerSelection);
-            console.log(result);
 
             //The winner is declared
 
@@ -78,12 +107,21 @@
                         console.error("This is not working...")
                 }
             } 
-            console.log(playRound(result));
-        }    
-    </script>    
-</head>
-<body>
+
+
+            //Display the results in the HTML
+
+            //Find div to put element into
+
+            //Create the element (h3 or another div)
+
+            //Add textContent to the element
+
+            //Append child
+
     
+    </script>    
+
 </body>
 
 </html>
