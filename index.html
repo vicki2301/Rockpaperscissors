@@ -25,10 +25,7 @@
     </div>
 
     <script>
-
-        //Loop entire game for 5 rounds - extended challenge
         
-
              //The computer randomly selects rock paper or scissors
 
             let options = ["rock", "paper", "scissors"]
@@ -42,23 +39,44 @@
             const buttons = document.querySelectorAll("button");
             let playerSelection = "";
             let computerSelection = "";
+            let count = 0;
+
             buttons.forEach((button)=> {
                 button.addEventListener("click", function(e){
+
+                    count++;
+
+                    if (count > 5 ) {
+                        
+                        return;
+                    }
+
                     playerSelection = this.id;
-
                     computerSelection = computerPlay(options);
-                    console.log(playerSelection, computerSelection);
 
+                    //Run analysis functions on who wins
                     let result = doesPlayerWin(playerSelection,computerSelection);
-                    console.log(result);
-                    console.log(playRound(result)); 
+                    playRound(result); 
 
+                    //The Computer and Player answers are displayed for current round
+                    computerResultsDisplayed.textContent = "Computer chose this round: " + computerSelection;
+                    playerResultsDisplayed.textContent = "Player chose this round: " + playerSelection;
+                    
+                    
+                    // Stop after 5
+                    if (count <= 5) {
 
+                        let round = document.createElement("h5");
+                        resultsHistory.appendChild(round);
+                        round.textContent = "Round " + count + " results: " + (result === true ? "Win" : "Lose");
+                    
+                    }
 
 
                 });
             });
-    
+        
+                 
             //The responses are analysed to who wins
 
             function doesPlayerWin(playerSelection, computerSelection){
@@ -70,54 +88,72 @@
                 // Rock
                 if (playerSelection==="rock" && computerSelection==="scissors") {
                     return true;
-                } else {
-                    return false;
                 }
 
                 // Paper
                 if (playerSelection==="paper" && computerSelection==="rock") {
                     return true;
-                } else {
-                    return false;
                 }
 
                 // Scissors
                 if (playerSelection==="scissors" && computerSelection==="paper") {
                     return true;
-                } else {
-                    return false;
                 }
-
+                
+                return false;
             } 
 
-            //The winner is declared
+
+            /*Display the current round results in the HTML*/
+
+            //Find div to put element into
+            const results = document.querySelector(".results");
+
+            //Create the elements
+            const resultsContent = document.createElement("h4");
+            const computerResultsDisplayed = document.createElement("h5");
+            const playerResultsDisplayed = document.createElement("h5");
+
+            //Append this new element to the div found
+            results.appendChild(computerResultsDisplayed);
+            results.appendChild(playerResultsDisplayed);
+            results.appendChild(resultsContent);
+
+            //The winner is declared and the textContent added to Results div
 
             function playRound(result){
                 switch (result){
                     case true:
-                        console.log("You win!");
+                        resultsContent.textContent = "You win!";
                         break
                     case false:
-                        console.log("You lose!")
+                        resultsContent.textContent = "You lose!"
                         break
                     case null:
-                        console.log("It's a draw!")
+                        resultsContent.textContent = "It's a draw!"
                         break
                     default:
                         console.error("This is not working...")
                 }
             } 
 
+            /*For 5 rounds display computer or player win*/
+            
+            //Find div to put elements into
+            const resultsHistory = document.querySelector(".round-results");
 
-            //Display the results in the HTML
+            //Create the elements
+            
 
-            //Find div to put element into
 
-            //Create the element (h3 or another div)
+            //Append this new element to the div found
 
-            //Add textContent to the element
 
-            //Append child
+            //Announce overall winner of the 5 rounds game
+
+
+
+
 
     
     </script>    
